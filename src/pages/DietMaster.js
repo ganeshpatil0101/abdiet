@@ -54,16 +54,20 @@ const emptyDiet = {
   meal3:'', 
   meal4:'', 
   meal5:'', 
-  meal6:''
+  meal6:'',
+  meal7:'',
+  meal8:'',
 };
 const MealItem = ({dietData}) => {
   const rows = [
-    {key: 'meal1', label: '08:00',},
-    {key: 'meal2', label: '10:30',},
-    {key: 'meal3', label: '01:00',},
-    {key: 'meal4', label: '03:30',},
-    {key: 'meal5', label: '06:00',},
-    {key: 'meal6', label: '08:30',},
+    {key: 'meal1', label: '06:00',},
+    {key: 'meal2', label: '08:00',},
+    {key: 'meal3', label: '11:00',},
+    {key: 'meal4', label: '01:00',},
+    {key: 'meal5', label: '03:00',},
+    {key: 'meal6', label: '05:30',},
+    {key: 'meal7', label: '08:30',},
+    {key: 'meal8', label: '10:00',},
   ]
 ;
   return (
@@ -182,6 +186,7 @@ const DietMaster = ({isAssign, onAssignDiet}) => {
   }
   const onEdit = (data) => {
     setDietData({...data});
+    window.scrollTo({top:0,behavior:'smooth'})
   }
   return (
     <Container component="main" maxWidth="xs">
@@ -210,8 +215,8 @@ const DietMaster = ({isAssign, onAssignDiet}) => {
             margin="normal"
             required={true}
             fullWidth
-            id="8000"
-            label="08:00"
+            id="6000"
+            label="06:00"
             name="meal1"
             value={dietData.meal1}
             onChange={(event)=> onInputChange('meal1', event.target.value)}
@@ -221,9 +226,9 @@ const DietMaster = ({isAssign, onAssignDiet}) => {
             margin="normal"
             required={true}
             fullWidth
-            id="1030"
-            label="10:30"
-            name="meal2"
+            id="8000"
+            label="08:00"
+            name="meal1"
             value={dietData.meal2}
             onChange={(event)=> onInputChange('meal2', event.target.value)}
           />
@@ -232,8 +237,8 @@ const DietMaster = ({isAssign, onAssignDiet}) => {
             margin="normal"
             required={true}
             fullWidth
-            id="0100"
-            label="01:00"
+            id="1100"
+            label="11:00"
             name="meal3"
             value={dietData.meal3}
             onChange={(event)=> onInputChange('meal3', event.target.value)}
@@ -243,8 +248,8 @@ const DietMaster = ({isAssign, onAssignDiet}) => {
             margin="normal"
             required={true}
             fullWidth
-            id="0330"
-            label="03:30"
+            id="0100"
+            label="01:00"
             name="meal4"
             value={dietData.meal4}
             onChange={(event)=> onInputChange('meal4', event.target.value)}
@@ -254,8 +259,8 @@ const DietMaster = ({isAssign, onAssignDiet}) => {
             margin="normal"
             required={true}
             fullWidth
-            id="0600"
-            label="06:00"
+            id="0300"
+            label="03:00"
             name="meal5"
             value={dietData.meal5}
             onChange={(event)=> onInputChange('meal5', event.target.value)}
@@ -265,11 +270,33 @@ const DietMaster = ({isAssign, onAssignDiet}) => {
             margin="normal"
             required={true}
             fullWidth
-            id="0830"
-            label="08:30"
+            id="0530"
+            label="05:30"
             name="meal6"
             value={dietData.meal6}
             onChange={(event)=> onInputChange('meal6', event.target.value)}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required={true}
+            fullWidth
+            id="0830"
+            label="08:30"
+            name="meal7"
+            value={dietData.meal7}
+            onChange={(event)=> onInputChange('meal7', event.target.value)}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required={true}
+            fullWidth
+            id="1000"
+            label="10:00"
+            name="meal8"
+            value={dietData.meal8}
+            onChange={(event)=> onInputChange('meal8', event.target.value)}
           />
           <Button
             type="submit"

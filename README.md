@@ -10,4 +10,5 @@ Netlify Build Status [![Netlify Status](https://api.netlify.com/api/v1/badges/39
 ## Remove old assign data
 ## navigate to dashboard after assignment - Done
 ## check and validate green icon & red icon on dashboard - Done
-## move to top when select diet on assign diet screen
+## move to top when select diet on assign diet screen - Done
+## filter diet master accordion list

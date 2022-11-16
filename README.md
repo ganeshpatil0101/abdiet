@@ -11,4 +11,6 @@ Netlify Build Status [![Netlify Status](https://api.netlify.com/api/v1/badges/39
 ## navigate to dashboard after assignment - Done
 ## check and validate green icon & red icon on dashboard - Done
 ## move to top when select diet on assign diet screen - Done
-## filter diet master accordion list
+## filter diet master accordion list - Done
+## PWD supports
+## Favicon icon

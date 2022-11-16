@@ -137,7 +137,7 @@ const Navbar = (props) => {
           </IconButton>
 
           <Typography variant="h6" className={classes.title}>
-            Diet Management
+            AB Diets
           </Typography>
         </Toolbar>
       </AppBar>

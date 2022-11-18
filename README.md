@@ -15,3 +15,6 @@ Netlify Build Status [![Netlify Status](https://api.netlify.com/api/v1/badges/39
 ## patient login
 ## Remove old assign data
 ## PWD supports
+## remove home page - show default login page
+## validate for actual mobile devices
+## duplicate calls optimization

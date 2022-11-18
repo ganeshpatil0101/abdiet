@@ -28,10 +28,12 @@ const Dashboard = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [userList, setUserList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  
+  const [isAdmin, setIsAdmin] = useState(false);
+
   useEffect(() => {
     if(!isEmpty(userData) && 
     !isEmpty(userData.currentUser) && !isEmpty(userData.currentUser.user)) {
+      setIsAdmin(userData.currentUser.isAdmin);
       const userCollection = collection(db, "users");
       let list = [];
       setIsLoading(true);
@@ -58,36 +60,41 @@ const Dashboard = () => {
     <> 
     <Container component="main" maxWidth="xs">
         <CssBaseline />
-        {isLoading && <Loader />}
-        {!isLoading && 
+        {!isAdmin && <h3>You don't have permission to this page</h3>}
+        {isAdmin && 
           <div>
-            <div style={{textAlign : "center"}} >
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <KeyboardDatePicker
-                  disableToolbar
-                  variant="inline"
-                  format="dd/MM/yyyy"
-                  margin="normal"
-                  id="date-picker-inline"
-                  label="Select Date To fill Diet"
-                  minDate={new Date()}
-                  value={selectedDate}
-                  onChange={handleDateChange}
-                  KeyboardButtonProps={{
-                    'aria-label': 'change date',
-                  }}
-                />
-              </MuiPickersUtilsProvider>
+            {isLoading && <Loader />}
+            {!isLoading && 
+              <div>
+                <div style={{textAlign : "center"}} >
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <KeyboardDatePicker
+                      disableToolbar
+                      variant="inline"
+                      format="dd/MM/yyyy"
+                      margin="normal"
+                      id="date-picker-inline"
+                      label="Select Date To fill Diet"
+                      minDate={new Date()}
+                      value={selectedDate}
+                      onChange={handleDateChange}
+                      KeyboardButtonProps={{
+                        'aria-label': 'change date',
+                      }}
+                    />
+                  </MuiPickersUtilsProvider>
+                </div>
+                <List>
+                  {userList.map((user) => (
+                    <UserItem 
+                      key={user.uid} 
+                      sDate={selectedDate} 
+                      userData={user} />))
+                  }
+              </List>
             </div>
-            <List>
-              {userList.map((user) => (
-                <UserItem 
-                  key={user.uid} 
-                  sDate={selectedDate} 
-                  userData={user} />))
-              }
-          </List>
-        </div>
+            }
+          </div>
         }
       </Container>
      </>

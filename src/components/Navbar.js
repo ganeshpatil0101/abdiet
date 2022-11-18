@@ -99,7 +99,7 @@ const Navbar = (props) => {
             </ListItem> */}
             <ListItem button key={'createuser'}>
               <ListItemIcon><InboxIcon /></ListItemIcon>
-              <ListItemText onClick={() => navigateTo('createuser')} primary={'Create User'} />
+              <ListItemText onClick={() => navigateTo('createuser')} primary={'Create New Patient'} />
             </ListItem>
             <ListItem button key={'dietmaster'}>
               <ListItemIcon><InboxIcon /></ListItemIcon>

@@ -1,45 +1,40 @@
 import React, { Suspense, lazy, useEffect } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
-import { getCurrentYear } from './components/Handlers';
-import { AppBar, Toolbar } from "@material-ui/core";
 import UserDataContext from './hooks/UserData';
-
 import getFirebase from './firebase-config';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
+import {ADMIN_USER} from './Constants';
 const Navbar = lazy(()=> import("./components/Navbar"));
-const About = lazy(() => import("./pages/About"));
 const LoginHandler = lazy(()=> import("./pages/LoginHandler"));
 const Dashboard = lazy(()=> import("./pages/Dashboard"));
 const Home = lazy(() => import("./pages/Home"));
-const AddMandal = lazy(() => import("./pages/AddMandal"));
-const AddGanapati = lazy(() => import("./pages/AddGanpati"));
 const AssignDiet = lazy(() => import("./pages/AssignDiet"));
 const CreateUser = lazy(() => import("./pages/CreateUser"));
 const DietMaster = lazy(() => import("./pages/DietMaster"));
-
+const PatientDashboard = lazy(() => import("./pages/PatientDashboard"));
 
 const useStyles = makeStyles(theme => ({
   offset: theme.mixins.toolbar,
 }))
-const ADMIN_USER = ['uZKwGqK6gGVAmgs3Tg6g2WtTVm23', '9BfBu5OakifPG6UBHXcyugwSVMU2'];
+
 function App() {
   const classes = useStyles();
   const [currentUser, setCurrentUser] = React.useState(null);
   const app = getFirebase();
-
+  
   const onUserLoggedIn = (user) => {
     console.log('user here at app ', user);
   }
   const onSingOut = () => {
     setCurrentUser(null);
   }
-
+  
   const auth = getAuth();
   useEffect(() => {
-      onAuthStateChanged(auth, (authUser) => {
+      const unsubscribe = onAuthStateChanged(auth, (authUser) => {
         if (authUser) {
           const isAdmin = ADMIN_USER.includes(authUser.uid);
           console.log('app ', authUser);
@@ -48,6 +43,9 @@ function App() {
           setCurrentUser(null);
         }
       });
+      return ()=>{
+        unsubscribe();
+      }
   }, []);
 
   return (
@@ -60,9 +58,6 @@ function App() {
             <Switch>
               <Route exact path="/">
                 <Home />
-                {/* <Redirect to={{
-                  pathname:`/photo/${year}`
-                }} /> */}
               </Route>
               <Route path="/login" >
                 <LoginHandler onUserLoggedIn={onUserLoggedIn} />
@@ -79,19 +74,9 @@ function App() {
                <Route path="/dietmaster"> 
                 <DietMaster isAssign={false} />
                </Route>
-               
-              {/* <Route exact path="/photo/:year">
-                <Home/>
-              </Route>
-              <Route path="/about" >
-                <About/>
-              </Route>
-              <Route path="/addmandal" >
-                <AddMandal/>
-              </Route>
-              <Route path="/addganpati" >
-                <AddGanapati/>
-              </Route> */}
+               <Route path="/pdashboard" >
+                <PatientDashboard />
+               </Route>
             </Switch>
           {/* </header> */}
         </div>

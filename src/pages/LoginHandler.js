@@ -8,47 +8,40 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useHistory } from "react-router-dom";
 
 const LoginHandler = ({onUserLoggedIn}) => {
-    const [isLogin, setIsLogin] = React.useState(true);
-    const [isLoading, setIsLoading] = React.useState(false);
-    const [currentUser, setCurrentUser] = React.useState(null);
-    const history = useHistory();
+    // const [isLogin, setIsLogin] = React.useState(true);
+    // const [isLoading, setIsLoading] = React.useState(false);
+    // const history = useHistory();
 
     // const app = getFirebase();
-    useEffect(() => {
-      const auth = getAuth();
-        setIsLoading(true);
-        onAuthStateChanged(auth, (authUser) => {
-          setIsLoading(false);
-          if (authUser) {
-            setCurrentUser(authUser);
-            onUserLoggedIn(authUser);
-            setIsLogin(false);
-            history.push('/dashboard');
-          } else {
-            setIsLogin(true);
-            setCurrentUser(null);
-          }
-        });
-    }, []);
+    // useEffect(() => {
+    //   const auth = getAuth();
+    //     setIsLoading(true);
+    //     onAuthStateChanged(auth, (authUser) => {
+    //       setIsLoading(false);
+    //       if (authUser) {
+    //         onUserLoggedIn(authUser);
+    //         setIsLogin(false);
+    //         history.push('/dashboard');
+    //       } else {
+    //         setIsLogin(true);
+    //       }
+    //     });
+    // }, []);
   
     function onLoginSuccess(authUser) {
       console.log('loginSUccesfully ==> ', authUser);
-      setIsLogin(false);
+      // setIsLogin(false);
     }
     function onLoginError(error) {
       console.error('loginError ', error);
       // TODO show error 
     }
-    function onRegisterSuccess() {
-      console.log('registerSUccesfully');
-    }
-    function onRegisterError(error) {
-      console.error('registerError ', error);
-    }
+
     return (
       <Grid container>
-        {isLoading && <Loader/>}
-        {isLogin && !isLoading && <Login onSuccess={onLoginSuccess} onError={onLoginError} />}
+        {/* {isLogin && <Login onSuccess={onLoginSuccess} onError={onLoginError} />} */}
+
+        <Login onSuccess={onLoginSuccess} onError={onLoginError} />
         {/* {!isLogin && !isLoading && <Register currentUser={currentUser} onSuccess={onRegisterSuccess} onError={onRegisterError} />} */}
       </Grid>
     );

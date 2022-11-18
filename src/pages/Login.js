@@ -18,7 +18,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="#">
-      Diet Management
+      AB Diets
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -62,12 +62,15 @@ function SignIn({onSuccess, onError}) {
       try {
           setIsLoading(true);
           setError('');
-          signInWithEmailAndPassword(auth, email, pass).then((user)=>{
-              console.log("user", user);
-              onSuccess(user);
+          let sufixEmail = email;
+          if(!email.includes('@gmail.com')) {
+            sufixEmail = `${email}@gmail.com`;
+          }
+          signInWithEmailAndPassword(auth, sufixEmail, pass).then((user)=>{
               setIsLoading(false);
+              onSuccess(user);
             }).catch(e => {
-              console.error('updated ===',e)
+              console.error('error=== ',e)
               setError(e.message);
               setIsLoading(false);
             });
@@ -98,7 +101,7 @@ function SignIn({onSuccess, onError}) {
             required={true}
             fullWidth
             id="email"
-            label="Email Address"
+            label="Email Address / Mobile No."
             name="email"
             autoComplete="email"
             autoFocus

@@ -141,7 +141,7 @@ const CreateUser = () => {
           <AddOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-            Create User
+            Create New Patient
         </Typography>
         {error && <Error errorMessage={error} />}
         <form className={classes.form} noValidate method="post" onSubmit={onSubmit}>

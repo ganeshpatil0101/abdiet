@@ -2,15 +2,16 @@ Netlify Build Status [![Netlify Status](https://api.netlify.com/api/v1/badges/39
 # AB Diet Management
 [LIVE DEMO](http://kopganeshmurti.in/)
 #TODO
-## patient login
+
 ## diet master - Done
 ## assign diet page - Done
 ## assign diet by selected date - Date
 ## assign diet to user - Done
-## Remove old assign data
 ## navigate to dashboard after assignment - Done
 ## check and validate green icon & red icon on dashboard - Done
 ## move to top when select diet on assign diet screen - Done
 ## filter diet master accordion list - Done
+## Favicon icon - done
+## patient login
+## Remove old assign data
 ## PWD supports
-## Favicon icon

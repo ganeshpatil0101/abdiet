@@ -3,4 +3,4 @@ Disallow: /nogooglebot/
 
 User-agent: *
 Allow: /
-Sitemap: https://kopganeshmurti.in/sitemap.xml
+Sitemap: https://abdiet.netlify.app/sitemap.xml

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import {isEmpty} from 'lodash';
+
 
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -20,6 +20,8 @@ import {
 
 
 import UserDataContext from '../hooks/UserData';
+import {isValidUser} from '../components/Handlers';
+
 const app = getFirebase();
 const db = getFirestore(app);
 
@@ -31,8 +33,7 @@ const Dashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    if(!isEmpty(userData) && 
-    !isEmpty(userData.currentUser) && !isEmpty(userData.currentUser.user)) {
+    if(isValidUser(userData)) {
       setIsAdmin(userData.currentUser.isAdmin);
       const userCollection = collection(db, "users");
       let list = [];

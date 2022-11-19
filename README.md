@@ -18,3 +18,4 @@ Netlify Build Status [![Netlify Status](https://api.netlify.com/api/v1/badges/39
 ## remove home page - show default login page
 ## validate for actual mobile devices
 ## duplicate calls optimization
+## remove useCOntext and put values in session storage

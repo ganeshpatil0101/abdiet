@@ -124,8 +124,9 @@ const DietMaster = ({isAssign, onAssignDiet}) => {
     window.scrollTo({top:0,behavior:'smooth'})
   }
   return (
+    <>
     <Container component="main" maxWidth="xs">
-      <CssBaseline />
+      {/* <CssBaseline /> */}
       {isLoading && <Loader />}
       {!isLoading && <div className={classes.paper}>
         <Typography component="h1" variant="h5">
@@ -244,7 +245,10 @@ const DietMaster = ({isAssign, onAssignDiet}) => {
       </div>}
       <Divider />
       <DietMasterList list={dietList} onEdit={onEdit} isAssign={isAssign} />
+      <br />
+      <Divider />
     </Container>
+    </>
   );
 };
 

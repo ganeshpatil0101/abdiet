@@ -1,3 +1,4 @@
+import {isEmpty} from 'lodash';
 
 export function getYears() {
     const lastYear = new Date().getFullYear();
@@ -24,4 +25,11 @@ export function getFromTo(arrEl, from, to) {
 }
 export const getFormattedDate = (sDate) => {
     return `${sDate.getDate()}_${sDate.getMonth()+1}_${sDate.getFullYear()}`;
+}
+export const getTodaysDate = () => {
+    const sDate = new Date();
+    return `${sDate.getDate()}/${sDate.getMonth()+1}/${sDate.getFullYear()}`;
+}
+export const isValidUser = (userData) => {
+    return !isEmpty(userData) && !isEmpty(userData.currentUser) && !isEmpty(userData.currentUser.user)
 }

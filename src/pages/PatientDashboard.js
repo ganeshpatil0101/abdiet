@@ -30,8 +30,9 @@ const PatientDashboard = () => {
         setBasicData({
           pName: dataRef.current.pName,
           weight: dataRef.current.weight
-        })
-        setDietData(dataRef.current.data[getFormattedDate(new Date())]);
+        });
+        const updatedData = dataRef.current.data[getFormattedDate(new Date())] || {};
+        setDietData(updatedData);
         setIsLoading(false);
       }).catch((error) => {
         console.error('error', error);

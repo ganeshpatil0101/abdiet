@@ -79,10 +79,10 @@ const Navbar = (props) => {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-            <ListItem button key={'dashboard'}>
+            {/* <ListItem button key={'dashboard'}>
               <ListItemIcon><InboxIcon /></ListItemIcon>
               <ListItemText primary={'Home'} />
-            </ListItem>
+            </ListItem> */}
           {user.current.currentUser?.isAdmin ? (
             <>
             <ListItem button key={'dashboard'} >

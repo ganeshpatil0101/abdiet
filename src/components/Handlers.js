@@ -33,3 +33,38 @@ export const getTodaysDate = () => {
 export const isValidUser = (userData) => {
     return !isEmpty(userData) && !isEmpty(userData.currentUser) && !isEmpty(userData.currentUser.user)
 }
+
+const sortDates = (a,b)=>{
+    if(a.formatted == b.formatted){ 
+       return 0
+    } 
+    if(a.formatted < b.formatted){
+      return 1
+    }else{
+      return -1
+    }
+}
+
+export function removeOldData(arr, seperator="_") {
+    console.log('====>>> arr ', arr);
+    const dateConverted = arr.map(date=>{ 
+        const data_arr = date.split(seperator);
+        return {formatted:new Date(data_arr[2],data_arr[1]-1,data_arr[0]),raw:date};
+    });
+
+    const filteredSorted = dateConverted.filter(x=>(x.formatted<new Date())).sort(sortDates);
+
+    const [a,b,...data] = filteredSorted;
+
+    return (data||[]).map(x=>x.raw);
+}
+
+
+// const arr =['12_09_2022',
+//  '10_09_2022',
+//  '11_09_2022',
+//  '07_09_2022',
+//  '05_09_2022',
+//  '22_11_2022'];
+
+// console.log(testme(arr,"_"));

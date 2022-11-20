@@ -6,8 +6,12 @@ import { getFormattedDate } from '../components/Handlers';
 import { useHistory } from 'react-router-dom';
 import getFirebase from '../firebase-config';
 import { getFirestore, collection, doc, getDoc, setDoc } from 'firebase/firestore/lite';
+import Loader from '../components/Loader';
+import { removeOldData } from '../components/Handlers';
+
 
 const AssignDiet = () => {
+  const [isLoading, setIsLoading] = React.useState(false);
   let { uid, date } = useParams();
   const app = getFirebase();
   const db = getFirestore(app);
@@ -21,24 +25,34 @@ const AssignDiet = () => {
     const docSnap = await getDoc(docRef);
     let allUserData = docSnap.data();
     let existingData = {...allUserData.data};
+    const oldEntities = removeOldData(Object.keys(existingData));
+    oldEntities.forEach((i) => {
+      delete existingData[i];
+    });
     existingData[fDate] = dietData;
     allUserData.data = existingData;
-    // TODO Remove old date data of diet 
     try {
-        setDoc(docRef, allUserData, { merge: true }).then(() => {
-          alert('Saved !');
+      setIsLoading(true);
+        setDoc(docRef, allUserData).then(() => {
+          alert('Assigned diet to user');
+          setIsLoading(false);
           history.push(`/dashboard`);
         }).catch((r)=> {
+          setIsLoading(false);
           console.error(r);
         });
       } catch(e) {
         console.error('=====>', e);
+        setIsLoading(false);
       }
   }
 
   return (
     <Grid container>
-      <DietMaster isAssign={true} onAssignDiet={onAssignDiet} />
+      {isLoading && <Loader />}
+      {!isLoading && 
+        <DietMaster isAssign={true} onAssignDiet={onAssignDiet} />
+      }
     </Grid>
   );
 };

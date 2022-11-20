@@ -1,6 +1,4 @@
-import React, {useContext, useEffect, useState, useRef} from "react";
-
-import Container from '@material-ui/core/Container';
+import React, {useEffect, useState, useRef, useContext} from "react";
 
 import Divider from '@material-ui/core/Divider';
 import { getFirestore, collection, getDoc, doc, getDocs } from 'firebase/firestore/lite';
@@ -20,15 +18,19 @@ const PatientDashboard = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [cData] = useState(getTodaysDate());
   const [dietData, setDietData] = useState({});
+  const [basicData, setBasicData] = useState({});
   const dataRef = useRef(null);
 
 
   useEffect(()=>{
-    console.log('===>>> userData = ', userData);
     if(isValidUser(userData)) {
       setIsLoading(true);
       getDoc(doc(db, "users", userData.currentUser.user.uid)).then((querySnapshot) => {
         dataRef.current = querySnapshot.data();
+        setBasicData({
+          pName: dataRef.current.pName,
+          weight: dataRef.current.weight
+        })
         setDietData(dataRef.current.data[getFormattedDate(new Date())]);
         setIsLoading(false);
       }).catch((error) => {
@@ -36,15 +38,19 @@ const PatientDashboard = () => {
         setIsLoading(false);
       });
     }
-  }, []);
+  }, [userData]);
 
   return (
     <div style={{padding : "10px"}} >
-      <br />
+      
       {isLoading && <Loader />}
       {!isLoading && 
         <div>
           <div style={{textAlign : "center"}} >
+            <Typography component="h6">
+              {basicData.pName} - weight : {basicData.weight}
+            </Typography>
+            <br />
             <Typography variant="h5" component="h5">
               {cData}
             </Typography>

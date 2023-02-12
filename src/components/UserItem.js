@@ -51,7 +51,7 @@ const UserItem = ({userData, sDate}) => {
           </ListItemAvatar>
           <ListItemText 
             primary={`${userData.pName}`} 
-            secondary={`Age: ${userData.age}, Weight: ${userData.weight}, ${userData.vegNonveg} `} />
+            secondary={`Age: ${userData.age}, Weight: ${userData.weight}, BMI: ${(userData.bmi) ? userData.bmi : 0}, ${userData.vegNonveg} `} />
             <ListItemSecondaryAction>
               <StatusIcon isComplete={isComplete} />
             </ListItemSecondaryAction>

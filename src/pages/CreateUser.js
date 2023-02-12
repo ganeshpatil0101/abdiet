@@ -50,6 +50,8 @@ const CreateUser = () => {
   const [mobNo, setMobNo] = React.useState('');
   const [error, setError] = React.useState('');
   const [weight, setWeight] = React.useState('');
+  const [hight, setHight] = React.useState('');
+  const [bmi, setBmi] = React.useState('');
   const [age, setAge] = React.useState();
   const [vegNonveg, setVegNonveg] = React.useState('Veg');
   const [isLoading, setIsLoading] = React.useState(false);
@@ -78,12 +80,28 @@ const CreateUser = () => {
       setError('Enter Weight');
       return false;
     }
+    if(isEmpty(hight)) {
+      setError('Enter Hight');
+      return false;
+    }
     if(isEmpty(age)) {
       setError('Enter Age');
       return false;
     }
     return true;
   }
+  function calculateBmi(w, h) {
+    console.log(w, h);
+    if(h>0 && w > 0) {
+      const hInMeter = h / 100;
+      const bmi = w / (hInMeter * hInMeter);
+      console.log('BMI ---->>> ', bmi.toFixed(2));
+      setBmi(bmi.toFixed(2));
+    }
+    setHight(h);
+    setWeight(w);
+  }
+
   function onSubmit(event) {
     event.preventDefault();
     console.log(fname, mobNo, weight, address);
@@ -99,6 +117,8 @@ const CreateUser = () => {
             pName: fname,
             mobNo,
             weight,
+            hight,
+            bmi,
             address,
             createdOn : getTimeInMs(),
             isActive: true,
@@ -180,7 +200,30 @@ const CreateUser = () => {
             label="weight"
             name="weight"
             value={weight}
-            onChange={(event)=> setWeight(event.target.value)}
+            onChange={(event)=> calculateBmi(event.target.value, hight)}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            type="number"
+            required
+            fullWidth
+            id="hight"
+            label="Hight in cm"
+            name="hight"
+            value={hight}
+            onChange={(event)=> calculateBmi(weight, event.target.value)}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            type="number"
+            readOnly
+            fullWidth
+            id="bmi"
+            label="BMI"
+            name="bmi"
+            value={bmi}
           />
           <TextField
             variant="outlined"
